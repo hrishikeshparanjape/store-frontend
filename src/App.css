@@ -1,0 +1,42 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #222;
+  height: 40px;
+  padding: 10px;
+  color: white;
+}
+
+.App-footer {
+  background-color: #222;
+  height: 40px;
+  padding: 10px;
+  bottom: 0;
+  width:100%;
+  position: absolute;
+  color: white;
+}
+
+.App-content {
+  //padding: 20px;
+  font-size: large;
+}
+
+.Logo a {
+  cursor: pointer;
+  padding-top: 10px;
+  float: left;
+  //color: white;
+  //text-decoration: none;
+
+}
+
+.MyAccount a {
+  cursor: pointer;
+  padding-top: 10px;
+  float: right;
+  //color: white;
+  //text-decoration: none;
+}

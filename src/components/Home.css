@@ -1,0 +1,91 @@
+.searchTable {
+  width:80%;
+  margin: auto;
+}
+
+.searchTable > tbody > tr > td:nth-child(1) {
+  width: 70%;
+  vertical-align:top;
+}
+
+.searchTable > tbody > tr > td:nth-child(2) {
+  width: 20%;
+  vertical-align:top;
+}
+
+.searchTable > tbody > tr > td:nth-child(3) {
+  width: 10%;
+  vertical-align:top;
+}
+
+.searchTableDiv {
+  display: grid;
+  width:100%;
+  background-color: #F5F5DC;
+  height: 150px;
+}
+
+.addressTextField {
+  width:90%;
+  padding: 10px;
+  border: none;
+  border-bottom: solid 2px #c9c9c9;
+  transition: border 0.3s;
+}
+
+.addressTextField:focus,
+.addressTextField.focus {
+  border-bottom: solid 2px #969696;
+}
+
+.categoryTextField {
+  width:90%;
+  padding: 10px;
+  border: none;
+  border-bottom: solid 2px #c9c9c9;
+  transition: border 0.3s;
+}
+
+.categoryTextField:focus,
+.categoryTextField.focus {
+  border-bottom: solid 2px #969696;
+}
+
+.findButton {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.addressSuggestionList{
+  position:absolute;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.addressSuggestionListItem {
+  font: 200 20px/1.5 Helvetica, Verdana, sans-serif;
+  border-bottom: 1px solid #ccc;
+}
+
+.addressSuggestionListItemActive {
+  font-size: 30px;
+  background: #f6f6f6;
+}
+
+.geosuggest__suggests--hidden {
+  max-height: 0;
+  overflow: hidden;
+  border-width: 0;
+}
+
+.geosuggest__item--active {
+  background: #267dc0;
+  color: #fff;
+}
