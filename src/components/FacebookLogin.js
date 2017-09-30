@@ -16,12 +16,12 @@ class FacebookLogin extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('facebook-login-status', this.onFacebookLoginStatusReceived);
-    console.log("unmounting");
+    console.log("FacebookLogin unmounting");
   }
 
   componentDidMount() {
     window.addEventListener('facebook-login-status', this.onFacebookLoginStatusReceived);
-    console.log("mounted");
+    console.log("FacebookLogin mounted");
     this.checkFBStatus();
   }
 

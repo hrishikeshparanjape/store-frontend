@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 
 import FacebookLogin from './components/FacebookLogin';
-import Home from './components/Home';
+import SearchParent from './components/SearchParent';
+import Cart from './components/Cart';
+import Checkout from './components/Checkout';
 
 class App extends Component {
 
@@ -45,6 +47,10 @@ class App extends Component {
       this.setState({ page : 'login' })
     } else if (this.state.page !== 'home' && event.newURL.includes("home")) {
       this.setState({ page : 'home' })
+    } else if (this.state.page !== 'cart' && event.newURL.includes("cart")) {
+      this.setState({ page : 'cart' })
+    } else if (this.state.page !== 'checkout' && event.newURL.includes("checkout")) {
+      this.setState({ page : 'checkout' })
     }
   }
 
@@ -61,6 +67,37 @@ class App extends Component {
       window.location.href = "#login";
     }
   }
+
+  updatePage(newPage) {
+    window.location.href = "#" + newPage;
+    this.setState({ page : newPage })
+  }
+
+  getLocationHash() {
+    if(window.location.hash) {
+      var hash = window.location.hash.substring(1); //Puts hash in variable, and removes the # character
+      return hash;
+      // hash found
+    } else {
+      // No hash found
+      return null;
+    }
+  }
+
+  pageToRender(state) {
+    switch(this.getLocationHash()) {
+      case "login":
+        return (<FacebookLogin parent={this} />);
+      case "home":
+        return (<SearchParent parent={this} />);
+      case "cart":
+        return (<Cart parent={this} />);
+      case "checkout":
+        return (<Checkout parent={this} />); 
+      default:
+        return (<SearchParent parent={this} />);
+    }
+  }
   
   render() {
     return (
@@ -74,11 +111,7 @@ class App extends Component {
           </div>
         </div>
         <div className="App-content">
-          {this.state.page === 'login' ? 
-            (<FacebookLogin />) 
-            : 
-            (<Home />)
-          }
+          {this.pageToRender(this.state)}
         </div>
         <div className="App-footer">
         </div>  

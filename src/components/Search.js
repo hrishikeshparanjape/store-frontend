@@ -1,21 +1,36 @@
 import React, { Component } from 'react';
 import Geosuggest from 'react-geosuggest';
-import './Home.css';
+import './Search.css';
 
-class Home extends Component {
+class Search extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { loggedIn: false };
     this.onSuggestSelect = this.onSuggestSelect.bind(this);
+    this.onFindButtonClick = this.onFindButtonClick.bind(this);
+  }
+
+  onFindButtonClick(event) {
+    this.props.updateSearchResults([
+      {
+        menuItem: {
+          name: "Chicken Curry",
+          price: "$5.49",
+          image: "https://www.onceuponachef.com/images/2012/02/chicken-curry-575x437.jpg"
+        },
+        kitchen: {
+          name:"Rishi's kitchen"
+        }
+      }
+    ]);
   }
 
   componentWillUnmount() {
-    console.log("unmounting");
+    console.log("Search unmounting");
   }
 
   componentDidMount() {
-    console.log("mounted");
+    console.log("Search mounted");
   }
 
   onSuggestSelect(suggest){
@@ -51,7 +66,7 @@ class Home extends Component {
             </td> 
             <td>
               <div className="findButtonDiv">
-                <button className="findButton"> Find </button>
+                <button className="findButton" onClick={this.onFindButtonClick}> Find </button>
               </div>
             </td>
           </tr>
@@ -62,4 +77,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default Search;

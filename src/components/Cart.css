@@ -1,0 +1,37 @@
+
+.cartTable {
+  width:60%;
+  margin: auto;
+}
+
+.cartTable > tbody > tr > td:nth-child(1) {
+  width: 50%;
+  vertical-align:center;
+}
+
+.cartTable > tbody > tr > td:nth-child(2) {
+  width: 20%;
+  vertical-align:center;
+}
+
+.cartTable > tbody > tr > td:nth-child(3) {
+  width: 20%;
+  vertical-align:center;
+}
+
+..cartTableDiv {
+  display: grid;
+  width:100%;
+  background-color: red;
+}
+
+.cartButton {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
