@@ -17,24 +17,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    window.fbAsyncInit = function() {
-      window.FB.init({
-        appId            : '306616429735707',
-        autoLogAppEvents : true,
-        xfbml            : true,
-        version          : 'v2.10'
-      });
-      window.FB.AppEvents.logPageView();
-    };
-
-    (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {return;}
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-
     window.addEventListener("hashchange", this.onHashChange, false);
   }
 
@@ -43,14 +25,17 @@ class App extends Component {
   }
 
   onHashChange(event) {
-    if (this.state.page !== 'login' && event.newURL.includes("login")) {
+    console.log(this.state.page + ":" + event.newURL);
+    if (event.newURL.includes("login")) {
       this.setState({ page : 'login' })
-    } else if (this.state.page !== 'home' && event.newURL.includes("home")) {
+    } else if (event.newURL.includes("home")) {
       this.setState({ page : 'home' })
-    } else if (this.state.page !== 'cart' && event.newURL.includes("cart")) {
+    } else if (event.newURL.includes("cart")) {
       this.setState({ page : 'cart' })
-    } else if (this.state.page !== 'checkout' && event.newURL.includes("checkout")) {
+    } else if (event.newURL.includes("checkout")) {
       this.setState({ page : 'checkout' })
+    } else {
+      this.setState({ page : 'home' })
     }
   }
 
@@ -102,19 +87,21 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <div className="Logo">
-            <a onClick={this.onHomeButtonClick}>Welcome to React</a>
+        <nav className="navbar navbar-default">
+          <div className="container-fluid">
+            <div className="navbar-header">
+              <a onClick={this.onHomeButtonClick} className="navbar-brand logoLink">
+                <img alt="Brand" src="..."/>
+              </a>              
+            </div>
+            <ul className="nav navbar-nav navbar-right">
+              <li><a className="myAccountLink" onClick={this.onMyAccountButtonClick}><span className="glyphicon glyphicon-user"></span> My Account</a></li>
+            </ul>            
           </div>
-          <div className="MyAccount">
-            <a onClick={this.onMyAccountButtonClick}>My Account</a>
-          </div>
-        </div>
+        </nav>
         <div className="App-content">
           {this.pageToRender(this.state)}
         </div>
-        <div className="App-footer">
-        </div>  
       </div>
     );
   }

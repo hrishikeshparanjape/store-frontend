@@ -1,3 +1,5 @@
+.table th { text-align: center; }
+
 .loginBtn {
   box-sizing: border-box;
   position: relative;
@@ -63,3 +65,8 @@
 .sub:last-child {
     border: 0px;
 }
+
+.margin-elem {
+  margin: 1em;
+}
+

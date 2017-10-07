@@ -1,24 +1,32 @@
 import React, { Component } from 'react';
-import './Checkout.css';
+import './CreditCard.css';
 
-class Checkout extends Component {
+class CreditCard extends Component {  
+
+  constructor(props) {
+    super(props);
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+
 
   componentWillUnmount() {
-    console.log("Checkout unmounting");
+    console.log("CreditCard unmounting");
   }
 
   componentDidMount() {
-    console.log("Checkout mounted");
+    console.log("CreditCard mounted");
+  }
+
+  handleLogout() {
+    this.props.parent.handleLogout();
   }
 
   render() {
     return (
       <div className="checkoutDiv">
-
-
       <div className="checkoutContainer">
         <div id="Checkout" className="inline">
-      <h1>Pay Invoice</h1>
+      <h1>Card Details</h1>
       <div className="card-row">
           <span className="visa"></span>
           <span className="mastercard"></span>
@@ -26,65 +34,6 @@ class Checkout extends Component {
           <span className="discover"></span>
       </div>
       <form>
-          <div className="form-group">
-              <label className="checkoutLabel" htmlFor="PaymentAmount">Payment amount</label>
-              <div className="amount-placeholder">
-                  <span>$</span>
-                  <span>500.00</span>
-              </div>
-          </div>
-
-      <table className="table table-responsive">
-     <thead>
-         <tr>
-             <th>Card</th>
-             <th>Expiry</th>
-         </tr>
-     </thead>
-     <tbody>
-     
-         <tr>
-             <td>
-                 <div className="radio">
-                     <label><input type="radio" id='regular' name="optradio" />Ending with 1234</label>
-                 </div>
-             </td>
-             <td>
-             <div className="radiotext">
-                 <label htmlFor='regular'>02/21</label>
-             </div>
-             </td>
-         </tr>
-         <tr>
-             <td>
-                 <div className="radio">
-                     <label><input type="radio" id='express' name="optradio" />Ending with 0234</label>
-                </div>
-             </td>
-             <td>
-                 <div className="radiotext">
-                     <label htmlFor='express'>05/22</label>
-                 </div>
-             </td>
-         </tr>
-         <tr>
-             <td>
-                 <div className="radio">
-                     <label><input type="radio" id='newcard' name="optradio" />Use new card</label>
-                </div>
-             </td>
-             <td>
-                 <div className="radiotext">
-                     <label htmlFor='newcard'>12/23</label>
-                 </div>
-             </td>
-         </tr>
-         </tbody>
-</table>
-
-
-
-          
           <div className="form-group">
               <label className="checkoutLabel" htmlFor="NameOnCard">Name on card</label>
               <input id="NameOnCard" className="form-control" type="text" maxLength="255"></input>
@@ -117,7 +66,7 @@ class Checkout extends Component {
           </div>
           <button id="PayButton" className="btn btn-block btn-success submit-button">
               <span className="submit-button-lock"></span>
-              <span className="align-middle">Pay $500.00</span>
+              <span className="align-middle">Add New Card</span>
           </button>
       </form>
   </div>
@@ -127,4 +76,4 @@ class Checkout extends Component {
   }
 }
 
-export default Checkout;
+export default CreditCard;

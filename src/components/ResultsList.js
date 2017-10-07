@@ -38,20 +38,17 @@ class ResultsList extends Component {
     for(var i=0 ; i < this.props.searchResults.length ; i++) {
       listItems.push(<tr key={i}>
         <td><img alt="" src={this.props.searchResults[i].menuItem.image}></img></td>
-        <td><h3>{this.props.searchResults[i].menuItem.name}</h3></td>
-        <td><h3>{this.props.searchResults[i].kitchen.name}</h3></td>
-        <td><h3>{this.props.searchResults[i].menuItem.price}</h3></td>
-        <td><button onClick={this.onAddToCartButtonClick} className="addToCartButton">Add to Cart</button></td>
+        <td>{this.props.searchResults[i].menuItem.name} from {this.props.searchResults[i].kitchen.name}</td>
+        <td>{this.props.searchResults[i].menuItem.price}</td>
+        <td><button onClick={this.onAddToCartButtonClick} className="btn btn-primary">Add to Cart</button></td>
         </tr>);
     }
     return (
-      <div className="searchResultsTableDiv">
-      <table className="searchResultsTable">
+      <table className="table searchResultsTable">
       <tbody>
       {listItems}
       </tbody>
       </table>
-      </div>
     );
   }
 }

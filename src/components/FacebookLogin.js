@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-  import './FacebookLogin.css';
+import './FacebookLogin.css';
+import Profile from './Profile';
+import OrderHistory from './OrderHistory';
+import Signout from './Signout';
+import PaymentMethods from './PaymentMethods';
 
 class FacebookLogin extends Component {
 
@@ -10,6 +14,7 @@ class FacebookLogin extends Component {
     this.handleLogin = this.handleLogin.bind(this);
     this.handleSignup = this.handleSignup.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.facebookInitialized = this.facebookInitialized.bind(this);
     this.onFacebookLoginStatusReceived = this.onFacebookLoginStatusReceived.bind(this);
     window.addEventListener('facebook-login-status', this.onFacebookLoginStatusReceived);
   }
@@ -19,10 +24,29 @@ class FacebookLogin extends Component {
     console.log("FacebookLogin unmounting");
   }
 
+  facebookInitialized() {
+    window.FB.init({
+        appId            : '306616429735707',
+        autoLogAppEvents : true,
+        xfbml            : true,
+        version          : 'v2.10'
+      });
+      window.FB.AppEvents.logPageView();
+      this.checkFBStatus();
+  }
+
   componentDidMount() {
+    window.fbAsyncInit = this.facebookInitialized;
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
     window.addEventListener('facebook-login-status', this.onFacebookLoginStatusReceived);
     console.log("FacebookLogin mounted");
-    this.checkFBStatus();
   }
 
   onFacebookLoginStatusReceived(event) {
@@ -117,11 +141,44 @@ class FacebookLogin extends Component {
           </div>
         </div>)
         :
-      	(<div>
-          <button className="loginBtn loginBtn--facebook" onClick={this.handleLogout}>
-  			     Logout
-          </button>
-        </div>)} 
+      	(
+
+<div className="container-fluid">
+  <div className="row">
+    <div className="col-md-12">
+      <div className="tabbable">
+        <ul className="nav nav-pills nav-stacked col-md-3">
+          <li className="active"><a href="#a" data-toggle="tab">Profile</a></li>
+          <li><a href="#b" data-toggle="tab">Order History</a></li>
+          <li><a href="#c" data-toggle="tab">Payment Methods</a></li>
+          <li><a href="#d" data-toggle="tab">Log Out</a></li>
+        </ul>
+        <div className="tab-content col-md-9">
+          <div className="tab-pane active" id="a">
+            <Profile />
+          </div>
+          <div className="tab-pane" id="b">
+            <OrderHistory />
+          </div>
+          <div className="tab-pane" id="c">
+            <PaymentMethods />
+          </div>
+          <div className="tab-pane" id="d">
+            <Signout parent={this}/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+          )}
+
+
+
+
+
       </div>);
   }
 }

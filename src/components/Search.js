@@ -21,6 +21,56 @@ class Search extends Component {
         kitchen: {
           name:"Rishi's kitchen"
         }
+      },
+      {
+        menuItem: {
+          name: "Chicken Curry",
+          price: "$5.49",
+          image: "https://www.onceuponachef.com/images/2012/02/chicken-curry-575x437.jpg"
+        },
+        kitchen: {
+          name:"Rishi's kitchen"
+        }
+      },
+      {
+        menuItem: {
+          name: "Chicken Curry",
+          price: "$5.49",
+          image: "https://www.onceuponachef.com/images/2012/02/chicken-curry-575x437.jpg"
+        },
+        kitchen: {
+          name:"Rishi's kitchen"
+        }
+      },
+      {
+        menuItem: {
+          name: "Chicken Curry",
+          price: "$5.49",
+          image: "https://www.onceuponachef.com/images/2012/02/chicken-curry-575x437.jpg"
+        },
+        kitchen: {
+          name:"Rishi's kitchen"
+        }
+      },
+      {
+        menuItem: {
+          name: "Chicken Curry",
+          price: "$5.49",
+          image: "https://www.onceuponachef.com/images/2012/02/chicken-curry-575x437.jpg"
+        },
+        kitchen: {
+          name:"Rishi's kitchen"
+        }
+      },
+      {
+        menuItem: {
+          name: "Chicken Curry",
+          price: "$5.49",
+          image: "https://www.onceuponachef.com/images/2012/02/chicken-curry-575x437.jpg"
+        },
+        kitchen: {
+          name:"Rishi's kitchen"
+        }
       }
     ]);
   }
@@ -39,14 +89,15 @@ class Search extends Component {
 
   render() {
     return (
-      <div className="searchTableDiv">
-        <table className="searchTable">
-        <tbody>
-          <tr>
-            <th>Address</th>
-            <th>Food Type</th> 
-            <th> </th>
-          </tr>
+        <table className="table searchTable borderless">
+          <thead>
+            <tr>
+              <th>Address</th>
+              <th>Food Type</th> 
+              <th> </th>
+            </tr>
+          </thead>
+          <tbody>
           <tr>
             <td>        
               <div className="addressTextFieldDiv">
@@ -65,14 +116,11 @@ class Search extends Component {
               </div>
             </td> 
             <td>
-              <div className="findButtonDiv">
-                <button className="findButton" onClick={this.onFindButtonClick}> Find </button>
-              </div>
+              <button className="btn btn-primary" onClick={this.onFindButtonClick}> Find </button>
             </td>
           </tr>
           </tbody>
         </table>
-      </div>
     );
   }
 }

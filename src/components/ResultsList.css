@@ -1,55 +1,15 @@
 .searchResultsTable > tbody > tr > td > img {
-  //float: left;
-  margin: 0 15px 0 0;
   height: auto; 
   width: auto; 
   max-width: 100px; 
   max-height: 100px;
 }
 
-.addToCartButton {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
+.searchResultsTable > tbody > tr > td {
+     vertical-align: middle;
 }
 
 .searchResultsTable {
-  width:90%;
+  width: 98%;
   margin: auto;
-}
-
-.searchResultsTable > tbody > tr > td:nth-child(1) {
-  width: 10%;
-  vertical-align:center;
-}
-
-.searchResultsTable > tbody > tr > td:nth-child(2) {
-  width: 30%;
-  vertical-align:center;
-}
-
-.searchResultsTable > tbody > tr > td:nth-child(3) {
-  width: 30%;
-  vertical-align:center;
-}
-
-.searchResultsTable > tbody > tr > td:nth-child(4) {
-  width: 10%;
-  vertical-align:center;
-}
-
-.searchResultsTable > tbody > tr > td:nth-child(5) {
-  width: 10%;
-  vertical-align:center;
-}
-
-.searchResultsTableDiv {
-  display: grid;
-  width:100%;
-  background-color: red;
 }

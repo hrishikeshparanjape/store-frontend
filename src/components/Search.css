@@ -1,6 +1,13 @@
 .searchTable {
-  width:80%;
+  width:98%;
   margin: auto;
+}
+
+.borderless > tbody > tr > td,
+.borderless > tbody > tr > th,
+.borderless > thead > tr > td,
+.borderless > thead > tr > th {
+    //border: none;
 }
 
 .searchTable > tbody > tr > td:nth-child(1) {
@@ -18,15 +25,9 @@
   vertical-align:top;
 }
 
-.searchTableDiv {
-  display: grid;
+.addressTextField,
+.categoryTextField {
   width:100%;
-  background-color: #F5F5DC;
-  height: 150px;
-}
-
-.addressTextField {
-  width:90%;
   padding: 10px;
   border: none;
   border-bottom: solid 2px #c9c9c9;
@@ -34,35 +35,13 @@
 }
 
 .addressTextField:focus,
-.addressTextField.focus {
-  border-bottom: solid 2px #969696;
-}
-
-.categoryTextField {
-  width:90%;
-  padding: 10px;
-  border: none;
-  border-bottom: solid 2px #c9c9c9;
-  transition: border 0.3s;
-}
-
+.addressTextField.focus,
 .categoryTextField:focus,
 .categoryTextField.focus {
   border-bottom: solid 2px #969696;
 }
 
-.findButton {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-}
-
-.addressSuggestionList{
+.addressSuggestionList {
   position:absolute;
   list-style-type: none;
   margin: 0;
