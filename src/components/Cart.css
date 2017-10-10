@@ -55,7 +55,7 @@
 /* Apply clearfix in a few places */
 /* Apply dollar signs */
 .product .product-price:before, .product .product-line-price:before, .totals-value:before {
-  content: '$';
+//  content: '$';
 }
 
 /* Body/Header stuff */
@@ -141,10 +141,11 @@
   font-family: "HelveticaNeue-Medium", "Helvetica Neue Medium";
 }
 
-.checkout {
+.checkout, .keep-shopping {
   float: right;
   border: 0;
   margin-top: 20px;
+  margin-left: 20px;
   padding: 6px 25px;
   background-color: #6b6;
   color: #fff;

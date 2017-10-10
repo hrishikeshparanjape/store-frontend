@@ -14,6 +14,40 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_4awHKPu8I1rDQSjOvmX8ipTQjcq5VsQ&libraries=places"></script>
+    <script>
+  window.fbAsyncInit = function() {
+    window.FB.init({
+        appId            : '306616429735707',
+        autoLogAppEvents : true,
+        xfbml            : true,
+        version          : 'v2.10'
+      });
+      window.FB.AppEvents.logPageView();
+
+      window.FB.getLoginStatus(function(response) {
+        if (response.status === 'connected') {
+          var fbstatus = { status: "connected" , data: {
+            uid: response.authResponse.userID,
+            accessToken: response.authResponse.accessToken
+          }};
+          localStorage.setItem('fbstatus', JSON.stringify(fbstatus));
+        } else if (response.status === 'not_authorized') {
+          var fbstatus = { status: "not_authorized" , data: null };
+          localStorage.setItem('fbstatus', JSON.stringify(fbstatus));
+        } else {
+          var fbstatus = { status: "not_connected" , data: null };
+          localStorage.setItem('fbstatus', JSON.stringify(fbstatus));
+        }
+      });
+  };
+(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+    </script>
 
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.

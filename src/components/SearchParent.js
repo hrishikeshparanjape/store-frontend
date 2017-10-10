@@ -7,7 +7,9 @@ class SearchParent extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { searchResults: [] };
+    this.state = {
+      searchResults: []
+    };
   }
 
   componentWillUnmount() {
@@ -18,21 +20,11 @@ class SearchParent extends Component {
     console.log("SearchParent mounted");
   }
 
-  updateSearchResults(newValue) {
-    this.setState({
-      searchResults: newValue,
-    });
-  }
-
-  openCartPage(){
-    this.props.parent.updatePage("cart");
-  }
-
   render() {
     return (
       <div>
-        <Search parent={this} updateSearchResults={this.updateSearchResults.bind(this)}/>
-        <ResultsList parent={this} searchResults={this.state.searchResults} updateSearchResults={this.updateSearchResults.bind(this)}/>
+        <Search parent={this}/>
+        <ResultsList parent={this}/>
       </div>
     );
   }

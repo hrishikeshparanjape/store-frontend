@@ -8,13 +8,28 @@ class Search extends Component {
     super(props);
     this.onSuggestSelect = this.onSuggestSelect.bind(this);
     this.onFindButtonClick = this.onFindButtonClick.bind(this);
+    if (!JSON.parse(localStorage.getItem('searchResults'))) {
+      localStorage.setItem('searchResults', JSON.stringify([]));
+    }
   }
 
   onFindButtonClick(event) {
-    this.props.updateSearchResults([
+    var results = [
       {
         menuItem: {
-          name: "Chicken Curry",
+          name: "Chicken Curry 1",
+          price: "$5.49",
+          image: "https://www.onceuponachef.com/images/2012/02/chicken-curry-575x437.jpg",
+          quantity: "1"
+        },
+        kitchen: {
+          name:"Rishi's kitchen"
+        }
+      },
+      {
+        menuItem: {
+          quantity: "1",
+          name: "Chicken Curry 2",
           price: "$5.49",
           image: "https://www.onceuponachef.com/images/2012/02/chicken-curry-575x437.jpg"
         },
@@ -24,7 +39,8 @@ class Search extends Component {
       },
       {
         menuItem: {
-          name: "Chicken Curry",
+          quantity: "1",
+          name: "Chicken Curry 3",
           price: "$5.49",
           image: "https://www.onceuponachef.com/images/2012/02/chicken-curry-575x437.jpg"
         },
@@ -34,7 +50,8 @@ class Search extends Component {
       },
       {
         menuItem: {
-          name: "Chicken Curry",
+          quantity: "1",
+          name: "Chicken Curry 4",
           price: "$5.49",
           image: "https://www.onceuponachef.com/images/2012/02/chicken-curry-575x437.jpg"
         },
@@ -44,7 +61,8 @@ class Search extends Component {
       },
       {
         menuItem: {
-          name: "Chicken Curry",
+          quantity: "1",
+          name: "Chicken Curry 5",
           price: "$5.49",
           image: "https://www.onceuponachef.com/images/2012/02/chicken-curry-575x437.jpg"
         },
@@ -54,17 +72,8 @@ class Search extends Component {
       },
       {
         menuItem: {
-          name: "Chicken Curry",
-          price: "$5.49",
-          image: "https://www.onceuponachef.com/images/2012/02/chicken-curry-575x437.jpg"
-        },
-        kitchen: {
-          name:"Rishi's kitchen"
-        }
-      },
-      {
-        menuItem: {
-          name: "Chicken Curry",
+          quantity: "1",
+          name: "Chicken Curry 6",
           price: "$5.49",
           image: "https://www.onceuponachef.com/images/2012/02/chicken-curry-575x437.jpg"
         },
@@ -72,7 +81,9 @@ class Search extends Component {
           name:"Rishi's kitchen"
         }
       }
-    ]);
+    ];
+    localStorage.setItem('searchResults', JSON.stringify(results));
+    this.props.parent.forceUpdate();
   }
 
   componentWillUnmount() {

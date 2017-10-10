@@ -11,30 +11,25 @@ class Checkout extends Component {
     console.log("Checkout mounted");
   }
 
-  render() {
+  getCartSubTotal() {
+    var ret = 0;
+    var cart = JSON.parse(localStorage.getItem('cart'));
+    for(var i=0 ; i < cart.length ; i++) {
+      ret = ret + this.getLineItemPriceInFloat(cart[i].menuItem.price, cart[i].menuItem.quantity);
+    }
+    var currency = cart[0].menuItem.price.substring(0,1);
+    return currency + ret.toString();
+  }
+
+  getLineItemPriceInFloat(price, quantity) {
+    return parseFloat((parseFloat(price.substring(1)) * quantity).toFixed(2));
+  }
+
+
+  populateSavedCards() {
+if (true) {
     return (
-      <div className="checkoutDiv">
-
-
-      <div className="checkoutContainer">
-        <div id="Checkout" className="inline">
-      <h1>Pay Invoice</h1>
-      <div className="card-row">
-          <span className="visa"></span>
-          <span className="mastercard"></span>
-          <span className="amex"></span>
-          <span className="discover"></span>
-      </div>
-      <form>
-          <div className="form-group">
-              <label className="checkoutLabel" htmlFor="PaymentAmount">Payment amount</label>
-              <div className="amount-placeholder">
-                  <span>$</span>
-                  <span>500.00</span>
-              </div>
-          </div>
-
-      <table className="table table-responsive">
+            <table className="table table-responsive payment-methods-table">
      <thead>
          <tr>
              <th>Card</th>
@@ -42,11 +37,10 @@ class Checkout extends Component {
          </tr>
      </thead>
      <tbody>
-     
          <tr>
              <td>
                  <div className="radio">
-                     <label><input type="radio" id='regular' name="optradio" />Ending with 1234</label>
+                     <label><input type="radio" id='regular' name="optradio" data-toggle="collapse" data-target=".collapsePaymentDetails.in" />Ending with 1234</label>
                  </div>
              </td>
              <td>
@@ -58,7 +52,7 @@ class Checkout extends Component {
          <tr>
              <td>
                  <div className="radio">
-                     <label><input type="radio" id='express' name="optradio" />Ending with 0234</label>
+                     <label><input type="radio" id='express' name="optradio" data-toggle="collapse" data-target=".collapsePaymentDetails.in"/>Ending with 0234</label>
                 </div>
              </td>
              <td>
@@ -70,21 +64,52 @@ class Checkout extends Component {
          <tr>
              <td>
                  <div className="radio">
-                     <label><input type="radio" id='newcard' name="optradio" />Use new card</label>
+                     <label><input defaultChecked="true" type="radio" id='newcard' name="optradio" data-toggle="collapse" data-target=".collapsePaymentDetails:not(.in)" />Use a different card</label>
                 </div>
              </td>
-             <td>
+              <td>
                  <div className="radiotext">
-                     <label htmlFor='newcard'>12/23</label>
+                     <label htmlFor='newcard'>     </label>
                  </div>
              </td>
          </tr>
          </tbody>
 </table>
 
+      );
+    } else {
+      return null;
+    }
+  }
+
+  render() {
+    return (
+      <div className="checkoutDiv">
 
 
-          
+      <div className="checkoutContainer">
+        <div id="Checkout" className="inline">
+      <h1><button onClick={() => this.props.parent.updatePage("cart")} className="btn btn-primary pull-left">Back To Cart</button>Pay Invoice</h1>
+      <div className="card-row">
+          <span className="visa"></span>
+          <span className="mastercard"></span>
+          <span className="amex"></span>
+          <span className="discover"></span>
+      </div>
+      <div className="credit-card-form">
+          <div className="form-group">
+              <label className="checkoutLabel" htmlFor="PaymentAmount">Payment amount</label>
+              <div className="amount-placeholder">
+                  <span>{this.getCartSubTotal()}</span>
+              </div>
+          </div>
+          {this.populateSavedCards()}
+          <div className="collapsePaymentDetails collapse in">
+
+            <div className="card card-body">
+
+
+
           <div className="form-group">
               <label className="checkoutLabel" htmlFor="NameOnCard">Name on card</label>
               <input id="NameOnCard" className="form-control" type="text" maxLength="255"></input>
@@ -115,11 +140,16 @@ class Checkout extends Component {
                   <a tabIndex="0" role="button" data-toggle="popover" data-trigger="focus" data-placement="left" data-content="Enter the ZIP/Postal code for your credit card billing address."><i className="fa fa-question-circle"></i></a>
               </div>
           </div>
+
+            </div>
+          </div>
+
+
           <button id="PayButton" className="btn btn-block btn-success submit-button">
               <span className="submit-button-lock"></span>
-              <span className="align-middle">Pay $500.00</span>
+              <span className="align-middle">Pay {this.getCartSubTotal()}</span>
           </button>
-      </form>
+      </div>
   </div>
 </div>
       </div>

@@ -6,6 +6,9 @@ class Cart extends Component {
   constructor(props) {
     super(props);
     this.onCheckoutButtonClick = this.onCheckoutButtonClick.bind(this);
+    this.onRemoveButtonClick = this.onRemoveButtonClick.bind(this);
+    this.goToSearchPage = this.goToSearchPage.bind(this);
+    this.onQuantityChange = this.onQuantityChange.bind(this);
   }
 
   componentWillUnmount() {
@@ -16,26 +19,100 @@ class Cart extends Component {
     console.log("Cart mounted");
   }
 
+  onQuantityChange(cartItemIndex, event) {
+    console.log(event.target.value);
+    console.log(cartItemIndex);
+    var cart = JSON.parse(localStorage.getItem('cart'));
+    cart[cartItemIndex].menuItem.quantity = event.target.value;
+    localStorage.setItem('cart', JSON.stringify(cart));
+    this.forceUpdate();
+  }
+
+  onRemoveButtonClick(cartItemIndex) {
+    var cart = JSON.parse(localStorage.getItem('cart'));
+    cart.splice(cartItemIndex, 1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    this.forceUpdate();
+  }
+
+  goToSearchPage() {
+    this.props.parent.updatePage("home");
+  }
+
+  getCartSubTotal() {
+    var ret = 0;
+    var cart = JSON.parse(localStorage.getItem('cart'));
+    for(var i=0 ; i < cart.length ; i++) {
+      ret = ret + this.getLineItemPriceInFloat(cart[i].menuItem.price, cart[i].menuItem.quantity);
+    }
+    var currency = cart[0].menuItem.price.substring(0,1);
+    return currency + ret.toFixed(2);
+  }
+
+  getLineItemPrice(price, quantity) {
+    var currency = price.substring(0,1);
+    return currency + this.getLineItemPriceInFloat(price, quantity).toString();
+  }
+
+  getLineItemPriceInFloat(price, quantity) {
+    return parseFloat((parseFloat(price.substring(1)) * quantity).toFixed(2));
+  }
+
+  emptyCart() {
+    return(
+      <div className="jumbotron jumbotron-fluid">
+      <div className="container">
+        <h1 className="display-3">Empty Cart</h1>
+        <p className="lead">You have an empty cart. <button onClick={this.goToSearchPage} className="btn btn-primary">Lets find something else to eat!</button></p>
+      </div>
+      </div>
+      )
+  }
+
   getCartItemsForDisplay() {
     var cart = JSON.parse(localStorage.getItem('cart'));
-    var items =  cart.items;
-    console.log("Cart.getCartItemsForDisplay: cart items" + items);
     var ret = [];
-    for(var i=0 ; i < items.length ; i++) {
-       ret.push(<tr key={i}>
-        <td>{items[i].name} from {items[i].kitchen}</td>
-        <td>{items[i].quantity}</td>
-        <td>{items[i].price}</td>
-        </tr>);
+    console.log("cart=");
+    console.log(cart);
+    for(var i=0 ; i < cart.length ; i++) {
+       ret.push(
+         <div key={i} className="product">
+         <div className="product-image">
+            <img alt="" src={cart[i].menuItem.image} />
+         </div>
+         <div className="product-details">
+            <div className="product-title">{cart[i].menuItem.name}</div>
+            <p className="product-description">From {cart[i].kitchen.name}</p>
+         </div>
+         <div className="product-price">{cart[i].menuItem.price}</div>
+         <div className="product-quantity">
+            <input type="number" value={cart[i].menuItem.quantity} min="1" onChange={this.onQuantityChange.bind(this, i)}/>
+         </div>
+         <div className="product-removal">
+            <button className="remove-product" onClick={this.onRemoveButtonClick.bind(null, i)}>
+            Remove
+            </button>
+         </div>
+         <div className="product-line-price">{this.getLineItemPrice(cart[i].menuItem.price, cart[i].menuItem.quantity)}</div>
+      </div>);
     }
     return ret;
   }
 
   onCheckoutButtonClick() {
-    this.props.parent.updatePage('checkout');
+    var fbstatus = JSON.parse(localStorage.getItem('fbstatus'));
+    if (fbstatus.status === "connected") {
+      this.props.parent.updatePage('checkout');
+    } else {
+      this.props.parent.updatePage('loginsignup');
+    }
   }
 
   render() {
+    var cartItems = this.getCartItemsForDisplay();
+    if(cartItems.length === 0) {
+      return this.emptyCart();
+    } else {
     return (
 <div className="shopping-cart-container">
    <div className="shopping-cart">
@@ -47,66 +124,31 @@ class Cart extends Component {
          <label className="product-removal label-in-cart">Remove</label>
          <label className="product-line-price label-in-cart">Total</label>
       </div>
-      <div className="product">
-         <div className="product-image">
-            <img alt="" src="https://s.cdpn.io/3/dingo-dog-bones.jpg" />
-         </div>
-         <div className="product-details">
-            <div className="product-title">Dingo Dog Bones</div>
-            <p className="product-description">The best dog bones of all time. Holy crap. Your dog will be begging for these things! I got curious once and ate one myself. I'm a fan.</p>
-         </div>
-         <div className="product-price">12.99</div>
-         <div className="product-quantity">
-            <input type="number" value="2" min="1" />
-         </div>
-         <div className="product-removal">
-            <button className="remove-product">
-            Remove
-            </button>
-         </div>
-         <div className="product-line-price">25.98</div>
-      </div>
-      <div className="product">
-         <div className="product-image">
-            <img alt="" src="https://s.cdpn.io/3/large-NutroNaturalChoiceAdultLambMealandRiceDryDogFood.png" />
-         </div>
-         <div className="product-details">
-            <div className="product-title">Nutro™ Adult Lamb and Rice Dog Food</div>
-            <p className="product-description">Who doesn't like lamb and rice? We've all hit the halal cart at 3am while quasi-blackout after a night of binge drinking in Manhattan. Now it's your dog's turn!</p>
-         </div>
-         <div className="product-price">45.99</div>
-         <div className="product-quantity">
-            <input type="number" value="1" min="1" />
-         </div>
-         <div className="product-removal">
-            <button className="remove-product">
-            Remove
-            </button>
-         </div>
-         <div className="product-line-price">45.99</div>
-      </div>
+      {cartItems}
       <div className="totals">
          <div className="totals-item">
             <label className="label-in-cart">Subtotal</label>
-            <div className="totals-value" id="cart-subtotal">71.97</div>
+            <div className="totals-value" id="cart-subtotal">{this.getCartSubTotal()}</div>
          </div>
          <div className="totals-item">
-            <label className="label-in-cart">Tax (5%)</label>
-            <div className="totals-value" id="cart-tax">3.60</div>
+            <label className="label-in-cart">Tax (0%)</label>
+            <div className="totals-value" id="cart-tax">0.00</div>
          </div>
          <div className="totals-item">
-            <label className="label-in-cart">Shipping</label>
-            <div className="totals-value" id="cart-shipping">15.00</div>
+            <label className="label-in-cart">Shipping/Delivery</label>
+            <div className="totals-value" id="cart-shipping">0.00</div>
          </div>
          <div className="totals-item totals-item-total">
             <label className="label-in-cart">Grand Total</label>
-            <div className="totals-value" id="cart-total">90.57</div>
+            <div className="totals-value" id="cart-total">{this.getCartSubTotal()}</div>
          </div>
       </div>
       <button onClick={this.onCheckoutButtonClick} className="checkout">Checkout</button>
+      <button onClick={this.goToSearchPage} className="keep-shopping">Keep Shopping</button>
    </div>
 </div>
     );
+}
   }
 }
 

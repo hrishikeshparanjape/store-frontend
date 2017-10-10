@@ -5,6 +5,7 @@ import FacebookLogin from './components/FacebookLogin';
 import SearchParent from './components/SearchParent';
 import Cart from './components/Cart';
 import Checkout from './components/Checkout';
+import LoginSignup from './components/LoginSignup';
 
 class App extends Component {
 
@@ -34,6 +35,8 @@ class App extends Component {
       this.setState({ page : 'cart' })
     } else if (event.newURL.includes("checkout")) {
       this.setState({ page : 'checkout' })
+    } else if (event.newURL.includes("loginsignup")) {
+      this.setState({ page : 'loginsignup' })
     } else {
       this.setState({ page : 'home' })
     }
@@ -79,6 +82,8 @@ class App extends Component {
         return (<Cart parent={this} />);
       case "checkout":
         return (<Checkout parent={this} />); 
+      case "loginsignup":
+        return (<LoginSignup parent={this} />); 
       default:
         return (<SearchParent parent={this} />);
     }
@@ -91,7 +96,7 @@ class App extends Component {
           <div className="container-fluid">
             <div className="navbar-header">
               <a onClick={this.onHomeButtonClick} className="navbar-brand logoLink">
-                <img alt="Brand" src="..."/>
+                <img alt="Brand"/>
               </a>              
             </div>
             <ul className="nav navbar-nav navbar-right">

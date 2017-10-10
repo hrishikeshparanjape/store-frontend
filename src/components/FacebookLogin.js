@@ -14,7 +14,6 @@ class FacebookLogin extends Component {
     this.handleLogin = this.handleLogin.bind(this);
     this.handleSignup = this.handleSignup.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
-    this.facebookInitialized = this.facebookInitialized.bind(this);
     this.onFacebookLoginStatusReceived = this.onFacebookLoginStatusReceived.bind(this);
     window.addEventListener('facebook-login-status', this.onFacebookLoginStatusReceived);
   }
@@ -24,27 +23,8 @@ class FacebookLogin extends Component {
     console.log("FacebookLogin unmounting");
   }
 
-  facebookInitialized() {
-    window.FB.init({
-        appId            : '306616429735707',
-        autoLogAppEvents : true,
-        xfbml            : true,
-        version          : 'v2.10'
-      });
-      window.FB.AppEvents.logPageView();
-      this.checkFBStatus();
-  }
-
   componentDidMount() {
-    window.fbAsyncInit = this.facebookInitialized;
-    (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {return;}
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-
+    this.checkFBStatus();
     window.addEventListener('facebook-login-status', this.onFacebookLoginStatusReceived);
     console.log("FacebookLogin mounted");
   }
