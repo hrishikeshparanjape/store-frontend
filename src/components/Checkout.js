@@ -9,6 +9,19 @@ class Checkout extends Component {
 
   componentDidMount() {
     console.log("Checkout mounted");
+    if (!this.isFacebookConnected()) {
+      this.props.parent.updatePage("loginsignup");
+    }
+
+  }
+
+  isFacebookConnected() {
+    var fbstatus = JSON.parse(localStorage.getItem('fbstatus'));
+    if (!fbstatus || fbstatus.status !== "connected") {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   getCartSubTotal() {

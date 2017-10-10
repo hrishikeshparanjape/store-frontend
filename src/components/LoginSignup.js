@@ -18,7 +18,6 @@ class LoginSignup extends Component {
 
   handleLogin() {
     console.log(this);
-    var that = this;
     window.FB.login(function(response){
       if (response.status === 'connected') {
         var fbstatus = { status: "connected" , data: {
@@ -26,7 +25,7 @@ class LoginSignup extends Component {
           accessToken: response.authResponse.accessToken
         }};
         localStorage.setItem('fbstatus', JSON.stringify(fbstatus));
-        that.props.parent.updatePage("cart");
+        window.history.back();
       }
     })
   }
@@ -36,7 +35,7 @@ class LoginSignup extends Component {
       <div className="container">
         <h1 className="display-3">Let us get you started</h1>
         <p className="lead">              
-          <button onClick={this.handleLogin} className="loginBtn loginBtn--facebook" onClick={this.handleLogin}>
+          <button onClick={this.handleLogin} className="loginBtn loginBtn--facebook">
             Login with Facebook
           </button>
         </p>

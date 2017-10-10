@@ -100,12 +100,7 @@ class Cart extends Component {
   }
 
   onCheckoutButtonClick() {
-    var fbstatus = JSON.parse(localStorage.getItem('fbstatus'));
-    if (fbstatus.status === "connected") {
-      this.props.parent.updatePage('checkout');
-    } else {
-      this.props.parent.updatePage('loginsignup');
-    }
+    this.props.parent.updatePage('checkout');
   }
 
   render() {
